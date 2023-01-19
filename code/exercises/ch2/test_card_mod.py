@@ -6,9 +6,9 @@ from dataclasses import field
 @dataclass
 class Card:
     summary: str = None
-    owner: str = None
+    owner: str = "yetee"
     state: str = "todo"
-    id: int = field(default=None, compare=False)
+    id: int = field(default=None, compare=True)
 
     @classmethod
     def from_dict(cls, d):
@@ -74,3 +74,8 @@ def test_to_dict():
         "id": 123,
     }
     assert c2 == c2_expected
+
+def test_negative_int_id():
+    card = Card("test", id=-1)
+
+    assert card is not None
