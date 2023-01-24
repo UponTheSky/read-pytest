@@ -32,3 +32,21 @@ def test_version_v2(capsys):
   # ...
 ```
 - also we can disable pytest's functionality of capturing normal output
+
+# Using monkeypatch
+- but rather than using `capsys` fixture, it is better off using "Typer" library(`typer.testing.CliRunner`)
+- **monkeypatch**: a dynamic modification of a class or module during runtime -> why use it?
+  - replacing input/output dependencies with objects or functions for testing
+  - when a test ends, regardless of pass or fail, the original unpatched code is restored
+
+- when mocking an imported library, you need to patch from the *module that imports that library* first, rather than the library itself
+
+```py
+monkeypatch.setattr(cards.cli.pathlib.Path, "home", fake_home)
+```
+
+# design for testability
+- add functionality to SW to make it easier to test
+  - undocumented API or parts of the API that are turned off for release
+  - or the API is extended and made public
+ 
